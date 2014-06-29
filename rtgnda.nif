@@ -1,0 +1,248 @@
+[RTGNDA]
+Type = NDIS
+Title = "Realtek RTL8169 MAC driver"
+Version = 2.01
+DriverName = RTGNDA$
+Xports = NETBEUI, LANDD
+
+[FILE]
+Name = RTGNDA.OS2
+Path = IBMCOM\MACS
+
+
+[SLOT]
+display = "Slot Number of the Adapter"
+type = decimal
+;default = "0"
+optional = yes
+range = 0-7
+help = "SLOT=n, n=0..7 specifies the PCI SLOT index number 
+to look for the adapter. PCI SLOT index starts 0. Default is 0. 
+This isn't required unless there are multiple adapters."
+
+
+[TXQUEUE]
+display = "Maximum TX queue count"
+type = decimal
+;default = 24
+optional = yes
+range = 4-84
+help = "TXQUEUE=n, n=4..84, specifies the number of transmits 
+which can be queued up by the driver. The default value is 16."
+
+
+[RXQUEUE]
+display = "Maximum RX queue count"
+type = decimal
+;default = 32
+optional = yes
+range = 6-252
+help = "RXQUEUE=n, n=6..252, specifies the number of recieves 
+which can be queued up by the driver. The default value is 24."
+
+
+[TXEARLY]
+display = "Early Transmit Start"
+type = decimal
+;default = 1536
+optional = yes
+range = 32-2016
+;step = 32
+help = "TXEARLY=n, n=32..2016, specifies the amount copied into FIFO in byte 
+that the transmit action can be started. If this value is too low, 
+the transmit FIFO underrun may occur. The default value is 1536, 
+which is Store and Foward on normal frame size condition."
+
+
+[TXMXDMA]
+display = "Maximum Transmit DMA Burst"
+type = decimal
+;default = 256
+optional = yes
+set = 0,16,32,64,128,256,512,1024
+help = "TXMXDMA=n, specifies the maximum size in byte of the transmit 
+DMA bursts. The value 0 means  unlimited. The default value is 256."
+
+
+[RXEARLY]
+display = "Early Receive Start"
+type = decimal
+;default = 256
+optional = yes
+set = 0,64,128,256,512,1024
+help = "RXEARLY=n, specifies the amount copied into FIFO in byte 
+that the receive DMA can be started. The value 0 means Store and Foward. 
+The default value is 256."
+
+
+[RXMXDMA]
+display = "Maximum Recieve DMA Burst"
+type = decimal
+;default = 256
+optional = yes
+set = 0,64,128,256,512,1024
+help = "RXMXDMA=n, specifies the maximum size in byte of the recieve 
+DMA bursts. The value 0 means unlimited. The default value is 256."
+
+
+[MAXFRAME]
+display = "Maximum Frame size"
+type = decimal
+;default = 1514
+optional = yes
+range = 1514-7514
+;step = 500
+help = "MAXFRAME=n, n=1514..7514, specifies the maximum frame size 
+which can be transmitted or received by the driver. The conventional 
+Ethernet MTU is 1500. The default value is 1514."
+
+
+[PCIMRW]
+display = "PCI Multiple Read/Write Command"
+type = string
+strlength = 4
+;default = YES
+optional = yes
+set = YES,NO
+help = "PCIMRW=str, specifies the MAC PCI logic can use Read Line, 
+Read Multiple, and Write and Invalidate commands for PCI DMA. 
+The default string is YES, TXMXDMA and RXMXDMA are meaningless. 
+If NO is specified, the MAC uses only Read and Write commands."
+
+
+[TXCOMPINT]
+display = "TX Complete Interrupt Enable"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "TXCOMPINT=str, specifies the action of the MAC PCI logic, 
+when the frames are tramsmitted. The Default string is NO, 
+which means the MAC generates NO Interrupt(polling mode).
+The MAC can indicate the interrupt signals when each frame is 
+transmitted, if YES is specified."
+
+
+[TXPOLLINT]
+display = "Transmit Queue Check Interval"
+type = decimal
+;default = 6144
+optional = yes
+range = 400-65535
+help = "TXPOLLINT=n, n=400..65535, specifies the interval time that 
+the the driver checks the transmit queue status. The interval is 
+n * 30ns on 1000BASE-T mode. 10 times on 100BASE, 100 times on 10BASE. 
+The default value is 6144, about 184 micro seconds. 
+If TXCOMPINT=YES is selected, this keyword is meaningless."
+
+
+[RXAEP]
+display = "Accept CRC or Alignment Errors"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "RXAEP=str, specifies the MAC action when the CRC or alignmet 
+errored frame is received. The MAC accepts it, if YES is specfied. 
+The default string is NO, the MAC rejects the errored frames."
+
+
+[RXARP]
+display = "Accept Runt Packets"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "RXARP=str, specifies the MAC action when the runt packet is 
+received. The MAC accepts it, if YES is specified. 
+The default string is NO, the MAC rejects the runt packets."
+
+
+[RXAIPEP]
+display = "Accept IP Checksum Errors"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "RXAIPEP=str, specifies the MAC action when the IP checksum error 
+is detected. The MAC accepts such packets, if YES is specified. 
+The default string is NO, the MAC rejects the IP checksum errored frames."
+
+
+[RXATCPEP]
+display = "Accept TCP Checksum Errors"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "RXAUDPEP=str, specifies the MAC action when the TCP checksum error 
+is detected. The MAC accepts such packets, if YES is specified. 
+The default string is NO, the MAC rejects the TCP checksum errored frames."
+
+
+[RXAUDPEP]
+display = "Accept UDP Checksum Errors"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "RXAUDPEP=str, specifies the MAC action when the UDP checksum error 
+is detected. The MAC accepts such packets, if YES is specified. 
+The default string is NO, the MAC rejects the UDP checksum errored frames."
+
+
+[PWMDIS]
+display = "Power Management Disable"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "PWMDIS=str, specifies the PCI Power Management capability.
+The Power Management capability fields in PCI configuration space 
+disappears and the MAC works as the Power Management unaware device,
+if YES is specified.
+The default string is NO, the MAC works as the PM aware device."
+
+
+[OPENBIND]
+display = "Open adapter in bind process"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "OPENBIND=str, specifies the adapter state just after the bind 
+process is done successfully. If YES is specified, the adapter is 
+in the open state. The default string is NO."
+
+
+[IRQ15OVR]
+display = "Accept IRQ level > 15"
+type = string
+strlength = 4
+;default = NO
+optional = yes
+set = YES,NO
+help = "IRQ15OVR=str, specifies that the range of the acceptable 
+IRQ level is either [0..15] or [0..255]. If YES is specified, 
+the range is [0..255](no range check). The default string is NO."
+
+
+;[NETADDRESS]
+;tag = NETADDRESS
+;display = "Network adapter address"
+;type = hexstring
+;strlength = 12
+;optional = yes
+;editable = yes
+;help = "NETADDRESS alternates the MAC address of the adapter 
+;with the one fixed in the hardware(in the EEPROM)."
+
+

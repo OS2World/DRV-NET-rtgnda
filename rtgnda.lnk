@@ -1,0 +1,135 @@
+===============================================
+Realtek RTL8169 OS/2 NDIS 2.0.1 MAC driver 1.13
+===============================================
+
+Included files are:
+rtgnda.os2	NDIS 2.0.1 MAC driver
+rtgnda.nif	Network Information File
+rtgnda.sym	Symbol Map file
+rtgnda.lnk	Document (this file)
+source.zip	source files
+
+
+1.No Warranty
+
+This code is provided 'AS IS' and any warranties are disclaimed.
+
+
+2.Functional restrictions
+
+VLAN/Priority is not supported.
+TBI is not supported.
+
+
+3.Redistribution with modification
+
+You should add your copyright notice, 
+"(c)Copyright 2006 your name. All rights reserved."
+and remove mine if it exists, 
+"(c)Copyright 2006 chagrin. Some rights reserved."
+
+This means that the modified binary/source is not mine, but yours, 
+regardless of the degree of the modification. 
+You can redistribute, of course, that for the commercial purpose 
+without any fee to me, without releasing the source, if you want.
+
+Don't forget that I'm never liable for your product.
+(You, also, should add disclaimer.)
+
+
+4.Note
+
+<power management>
+On some systems, the state of the PCI Power Management mode is D1,
+the power saving mode. I don't know who change the power state into D1.
+The driver scans the power management capability and tries to change 
+the state into D0, the normal operation mode. But, sometimes, 
+this attempt seems to fail... 
+
+<interrupt>
+When TXCOMPINT = "NO" is specified in protocol.ini, this driver works 
+in pseudo-polling mode, that is a trial method to reduce interrupts.
+You can modify the polling interval by use of TXPOLLINT keyword.
+If TXCOMPINT = "YES" is selected, it works as same as ver.1.04.
+Pay attention, the default setting is pseudo-polling mode.
+
+<netio>
+I've received that 'NETIO' fails. Sorry, I could not correct it... 
+
+
+5.History
+
+ver.1.13 - 08/03, 2008.
+- RTL8102E(10EC:8136) is supported.(from achain)
+
+ver.1.12 - 12/13, 2006.
+- Bugfix: 93C56 can be accessible now. (sorry!)
+- Device that has PCI ID (10EC:8167) is supported.
+- MII commands time-out codes were added.
+- 1GB half-duplex is advertised, though MAC doesn't support it. (joke?)
+- Chip Revision specific codes were almost removed.
+- Chip Revision is checked with HWVERID. (from solaris driver)
+
+ver.1.11 - 05/11, 2006.
+- RTL8168(10EC:8168) is supported.
+- 2nd memory range is checked if 1st memory range is invalid.(from Pavel Shtemenko)
+- I/O range check was removed.
+- The default string of PCIMRW was changed into "YES".
+
+ver.1.10 - 04/18, 2006.
+- 1 new keyword, OPENBIND, was added.
+- The hidden keyword, MAXFRAME, is enabled.(rtgnda.nif)
+- Receive filter mode is cleared at the init time.
+
+ver.1.09.01 - 01/16, 2006.
+- D-Link DGE-528T(1186:4300) is supported.(backward to ver 1.07.01 test)
+
+ver.1.09 - 12/17, 2005.
+- 1 new keyword, IRQ15OVR, was added.
+
+ver.1.08 - 11/15, 2005.
+- Workaround for Virtual PC.
+
+ver.1.07 - 06/17, 2005.
+- Bugfix: forgetting rx queue check in polling mode.(unbelievable!)
+- PCI BUS clock is checked for the polling interval timer.
+- Chip specific work-around codes were added. (From solaris driver)
+- Timer trigger code was modified.
+- The default values of keywords(TXQUEUE, RXQUEUE, TXPOLLINT) was changed.
+
+ver.1.06 - 12/30, 2003.
+- Bus master enable and memory space enable bits in PCI command register 
+   are scanned at the initial time.
+- Timer control code was modified.
+
+ver.1.05 - 11/28, 2003.
+- 2 new configuration keywords, TXCOMPINT, TXPOLLINT, were added.
+
+ver.1.04 - 11/18, 2003.
+- EARLYMEMINIT=TRUE in config.sys was supported.
+
+ver.1.03 - 11/15, 2003.
+- Bugfix:The code to set MAC address to ID0-5 was modified.(writeable)
+- PCI Power Management capability is scanned at the initial phase.
+- 1 new keyword, PWMDIS, is available.
+
+ver.1.02 - 6/7, 2003.
+- Bugfix:1000BASE-T half-duplex advertisement is inhibited.
+- Adjustment code added at ver.1.01 was removed, since it results in 
+   large resident size, high CPU load.
+
+ver.1.01 - 5/27, 2003.
+- Adjustment of tx buffer address alignment. (no effect on functionality)
+- Manual padding.
+
+ver.1.00 beta - 5/23, 2003.
+- Initial release as beta.
+
+
+6.Contact to the author
+
+Access os2warp.be Technical Support Center:
+URL http://www.os2warp.be/support/
+ or
+Email to YANAGIHARA, Nobuyuki:
+ <VYL00513@nifty.ne.jp>
